@@ -15,6 +15,7 @@ class MyNamedRoutes extends StatefulWidget {
 class _MyNamedRoutesState extends State<MyNamedRoutes> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Named Routes"),

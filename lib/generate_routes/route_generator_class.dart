@@ -1,3 +1,4 @@
+
 import 'package:chapter6_navigation/named_route.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_one.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_three.dart';
@@ -10,15 +11,15 @@ class RouteGenerator {
     switch (settings.name) {
       case '/onGenerateOne':
         return MaterialPageRoute(
-          builder: (context) => GenerateOne(),
+          builder: (context) => const GenerateOne(),
         );
       case '/onGenerateTwo':
         return MaterialPageRoute(
-          builder: (context) => GenerateTwo(),
+          builder: (context) => const GenerateTwo(),
         );
       case '/onGenerateThree':
         return MaterialPageRoute(
-          builder: (context) => GenerateThree(),
+          builder: (context) => const GenerateThree(),
         );
       case '/NamedRoutes':
         if (args is Map<String, String>) {
@@ -42,9 +43,9 @@ class RouteGenerator {
         appBar: AppBar(
           backgroundColor: Colors.red,
           centerTitle: true,
-          title: Text("Error"),
+          title: const Text("Error"),
         ),
-        body: Center(
+        body: const Center(
           child: Text("Error", style: TextStyle(color: Colors.red)),
         ),
       );
