@@ -338,7 +338,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () async{
                       Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        SendingDataToNewScreen();
+                        return SendingDataToNewScreen();
                       },));
                     },
                     child: Text("Send Data To a New Screen",
