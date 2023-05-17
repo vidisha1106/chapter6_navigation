@@ -11,21 +11,23 @@ class WidgetCommunication extends StatefulWidget {
 
 String textParent = 'My Parent Title';
 
+
+
 class _WidgetCommunicationState extends State<WidgetCommunication> with SingleTickerProviderStateMixin{
 
  TabController? tabController;
 
-  changeParent(String text) {
-    setState(() {
-      textParent = text;
-    });
-  }
+ changeParent(String text) {
+   setState(() {
+     textParent = text;
+   });
+ }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Communication Between Widgets"),
+        title: const Text("Communication Between Widgets"),
         centerTitle: true,
       ),
       body: Center(
@@ -35,9 +37,9 @@ class _WidgetCommunicationState extends State<WidgetCommunication> with SingleTi
             children: [
               Text(
                 textParent,
-                style: TextStyle(fontSize: 25),
+                style: const TextStyle(fontSize: 25),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               ElevatedButton(
@@ -46,14 +48,14 @@ class _WidgetCommunicationState extends State<WidgetCommunication> with SingleTi
                     textChild1 = "Updated from Parent";
                   });
                 },
-                child: Text("Action1"),
+                child: const Text("Action1"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               TabBar(
                 controller: tabController,
-                tabs: [
+                tabs: const [
                   Tab(
                     child:
                         Text("Child 1", style: TextStyle(color: Colors.blue)),
@@ -72,7 +74,7 @@ class _WidgetCommunicationState extends State<WidgetCommunication> with SingleTi
                       tabController: tabController!,
                       onChanged: changeParent,
                     ),
-                    Child2()
+                    const Child2()
                   ],
                 ),
               ),
@@ -85,6 +87,7 @@ class _WidgetCommunicationState extends State<WidgetCommunication> with SingleTi
 
   @override
   void initState() {
+    super.initState();
     tabController=TabController(length: 2, vsync: this,);
   }
 }

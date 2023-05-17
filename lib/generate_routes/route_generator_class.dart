@@ -33,7 +33,7 @@ class RouteGenerator {
         }
         return errorRoute();
       default:
-        return null;
+        return errorRoute();
     }
   }
 

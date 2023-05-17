@@ -19,7 +19,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -50,13 +49,15 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         //'/NamedRoutes' : (context) => MyNamedRoutes('absxgdgdgdgc'),
-        '/GenerateOne': (context) => GenerateOne(),
-        '/GenerateTwo': (context) => GenerateTwo(),
-        '/GenerateThree': (context) => GenerateThree(),
-        '/CupertinoPageRoute': (context) => MyCupertinoPageRoute(),
-        '/CommunicationBetweenScreens': (context) =>
-            MyCommunication(data: textFieldData,),
-        '/CommunicationBetweenWidgets': (context) => WidgetCommunication()
+        //'/GenerateOne': (context) => const GenerateOne(),
+        '/GenerateTwo': (context) => const GenerateTwo(),
+        '/GenerateThree': (context) => const GenerateThree(),
+        '/CupertinoPageRoute': (context) => const MyCupertinoPageRoute(),
+        '/CommunicationBetweenScreens': (context) => MyCommunication(
+              data: textFieldData,
+            ),
+        '/CommunicationBetweenWidgets': (context) =>
+            const WidgetCommunication(),
       },
     );
   }
@@ -74,7 +75,6 @@ class MyHomePage extends StatefulWidget {
 String textFieldData = '';
 
 class _MyHomePageState extends State<MyHomePage> {
-
   TextEditingController textEditingController = TextEditingController();
   Map<String, dynamic>? data;
 
@@ -86,19 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text("Do You Want to Exit??"),
+                title: const Text("Do You Want to Exit??"),
                 actions: [
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context, true);
                     },
-                    child: Text("Yes"),
+                    child: const Text("Yes"),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context, false);
                     },
-                    child: Text("No"),
+                    child: const Text("No"),
                   )
                 ],
               );
@@ -107,245 +107,263 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Navigation"),
+          title: const Text("Navigation"),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      data = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                MySecondPage(
-                                  name: 'vidisha',
-                                  language: 'Flutter',
-                                ),
-                          ));
-                      setState(() {});
-                    },
-                    child: Text("Push", style: TextStyle(fontSize: 18)),
-                  ),
-                  Text(data?['name'] ?? ''),
-                  Text(data?['language'] ?? ''),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/NamedRoutes', arguments: {
-                        'name': 'Vidisha',
-                        'age': '22',
-                        'language': 'Flutter'
-                      });
-                      //Navigator.pushNamed(context, '/NamedRoutes', arguments: 507);
-                      //Navigator.push(context,MaterialPageRoute(builder: (context) => MyNamedRoutes("")));
-                    },
-                    child: Text("Named Route", style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OnGenerateRoutes()));
-                    },
-                    child: Text(
-                        "onGenerate Route", style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => MyCupertinoPageRoute(),
-                          ));
-                    },
-                    child: Text(
-                        "CupertinoPageRoute", style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation) {
-                              return MyRouteTransition();
-                            },
-                            transitionsBuilder:
-                                (context, animation, secondaryAnimation,
-                                child) {
-                              final tween =
-                              Tween(begin: Offset(-1, 1), end: Offset.zero)
-                                  .chain(
-                                  CurveTween(
-                                      curve: Curves.fastLinearToSlowEaseIn));
-                              final offsetAnimation = animation.drive(tween);
-                              return SlideTransition(
-                                position: offsetAnimation,
-                                child: child,
-                              );
-                            },
-                          ));
-                    },
-                    child: Text("Slide Route Transition",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation) {
-                              return MyRouteTransition();
-                            },
-                            transitionsBuilder:
-                                (context, animation, secondaryAnimation,
-                                child) {
-                              return ScaleTransition(
-                                  child: child,
-                                  scale: Tween(begin: 0.0, end: 1.0).animate(
-                                      CurvedAnimation(
-                                          parent: animation,
-                                          curve: Curves.easeInOutCubic)));
-                            },
-                          ));
-                    },
-                    child: Text("Scale Route Transition",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation) {
-                              return MyRouteTransition();
-                            },
-                            transitionsBuilder:
-                                (context, animation, secondaryAnimation,
-                                child) {
-                              return RotationTransition(
-                                child: child,
-                                turns: Tween(begin: 0.0, end: 1.0).animate(
-                                    CurvedAnimation(
-                                        parent: animation,
-                                        curve: Curves.easeOutBack)),
-                              );
-                            },
-                          ));
-                    },
-                    child: Text("Rotation Route Transition",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation) {
-                              return MyRouteTransition();
-                            },
-                            transitionsBuilder:
-                                (context, animation, secondaryAnimation,
-                                child) {
-                              return Align(
-                                  child: SizeTransition(
-                                    sizeFactor: animation,
-                                    child: child,
-                                  ));
-                            },
-                          ));
-                    },
-                    child:
-                    Text("Size Route Transition",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation,
-                                Animation<double> secondaryAnimation) {
-                              return MyRouteTransition();
-                            },
-                            transitionsBuilder:
-                                (context, animation, secondaryAnimation,
-                                child) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: child,
-                              );
-                            },
-                          ));
-                    },
-                    child:
-                    Text("Fade Route Transition",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          CustomRouteTransition(child: MyRouteTransition()));
-                    },
-                    child: Text("Custom Route Transition",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: textEditingController,
-                        onChanged: (value) {
-                          textFieldData = value;
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  data = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MySecondPage(
+                          name: 'vidisha',
+                          language: 'Flutter',
+                        ),
+                      ));
+                  setState(() {});
+                },
+                child: const Text("Push", style: TextStyle(fontSize: 18)),
+              ),
+              Text(data?['name'] ?? ''),
+              Text(data?['language'] ?? ''),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/NamedRoutes', arguments: {
+                    'name': "Vidisha",
+                    'age': '22',
+                    'language': 'Flutter'
+                  });
+                  //Navigator.pushNamed(context, '/NamedRoutes', arguments: 507);
+                  //Navigator.push(context,MaterialPageRoute(builder: (context) => MyNamedRoutes("")));
+                },
+                child:
+                    const Text("Named Route", style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OnGenerateRoutes()));
+                },
+                child: const Text("onGenerate Route",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const MyCupertinoPageRoute(),
+                      ));
+                },
+                child: const Text("CupertinoPageRoute",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        barrierColor: Colors.blueGrey,
+                        transitionDuration: const Duration(seconds: 2),
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) {
+                          return const MyRouteTransition();
                         },
-                      ),
-                      ElevatedButton(onPressed: () {
-                        Navigator.pushNamed(
-                            context, '/CommunicationBetweenScreens',
-                            arguments: textFieldData);
-                      }, child: Text("Switch"),)
-                    ],
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return SlideTransition(
+                            position:
+                                Tween(begin: Offset(1, 0), end: Offset(0, 0))
+                                    .animate(animation),
+                            child: child,
+                          );
+                        },
+                      ));
+                },
+                child: const Text("Slide Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(seconds: 2),
+                        reverseTransitionDuration: Duration(seconds: 2),
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) {
+                          return const MyRouteTransition();
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return ScaleTransition(
+                              scale: Tween(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                      parent: animation,
+                                      curve: Curves.easeInOutCubic)),
+                              child: child);
+                        },
+                      ));
+                },
+                child: const Text("Scale Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(seconds: 3),
+                        reverseTransitionDuration: Duration(seconds: 3),
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) {
+                          return const MyRouteTransition();
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return RotationTransition(
+                            turns: Tween(begin: 0.0, end: 1.0).animate(
+                                CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.bounceOut)),
+                            child: child,
+                          );
+                        },
+                      ));
+                },
+                child: const Text("Rotation Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        reverseTransitionDuration: Duration(seconds: 3),
+                        transitionDuration: Duration(seconds: 3),
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) {
+                          return const MyRouteTransition();
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return Align(
+                              child: SizeTransition(
+                            sizeFactor: animation,
+                            child: child,
+                          ));
+                        },
+                      ));
+                },
+                child: const Text("Size Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(seconds: 1),
+                        reverseTransitionDuration: Duration(seconds: 1),
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) {
+                          return const MyRouteTransition();
+                        },
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                      ));
+                },
+                child: const Text("Fade Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      CustomRouteTransition(child: const MyRouteTransition()));
+                },
+                child: const Text("Custom Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, FadeAndScaleRoute(MyRouteTransition()));
+                },
+                child: const Text("fade and scale Route Transition",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              Column(
+                children: [
+                  TextField(
+                    controller: textEditingController,
+                    onChanged: (value) {
+                      textFieldData = value;
+                    },
                   ),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(
-                        context, '/CommunicationBetweenWidgets',);
+                          context, '/CommunicationBetweenScreens',
+                          arguments: textFieldData);
                     },
-                    child: Text("Widget Communication",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async{
-                      final option=await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => PickOption(),));
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(option),));
-                    },
-                    child: Text("Return Data From a Screen",
-                        style: TextStyle(fontSize: 18)),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async{
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return SendingDataToNewScreen();
-                      },));
-                    },
-                    child: Text("Send Data To a New Screen",
-                        style: TextStyle(fontSize: 18)),
-                  ),
+                    child: const Text("Switch"),
+                  )
                 ],
-              )),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/CommunicationBetweenWidgets',
+                  );
+                },
+                child: const Text("Widget Communication",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final option = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PickOption(),
+                      ));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(option),
+                  ));
+                },
+                child: const Text("Return Data From a Screen",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const SendingDataToNewScreen();
+                    },
+                  ));
+                },
+                child: const Text("Send Data To a New Screen",
+                    style: TextStyle(fontSize: 18)),
+              ),
+            ],
+          )),
         ),
       ),
     );
@@ -357,12 +375,71 @@ class CustomRouteTransition extends PageRouteBuilder {
 
   CustomRouteTransition({required this.child})
       : super(
-      pageBuilder: (context, animation, secondaryAnimation) => child,
-      transitionDuration: Duration(seconds: 2));
+            pageBuilder: (BuildContext context, Animation<double> animation,
+                    Animation<double> secondaryAnimation) =>
+                child,
+            transitionDuration: const Duration(seconds: 2),
+            transitionsBuilder: (BuildContext context,
+                Animation<double> animation,
+                Animation<double> secondaryAnimation,
+                child) {
+              return Stack(children: [
+                ScaleTransition(
+                  scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+                  child: child,
+                ),
+                FadeTransition(
+                  opacity: animation,
+                  child: child,
+                )
+              ]);
+            });
 
-  @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    return ScaleTransition(scale: animation, child: child);
-  }
+// @override
+// Widget buildTransitions(BuildContext context, Animation<double> animation,
+//     Animation<double> secondaryAnimation, Widget child) {
+//   return Stack(children: [
+//     ScaleTransition(
+//       scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+//       child: child,
+//     ),
+//     FadeTransition(
+//       opacity: animation,
+//       child: child,
+//     )
+//   ]);
+// }
+}
+
+class FadeAndScaleRoute extends PageRouteBuilder {
+  final Widget page;
+
+  FadeAndScaleRoute(this.page)
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionDuration: Duration(seconds: 5),
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              Stack(
+            children: <Widget>[
+              ScaleTransition(
+                scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+                child: child,
+              ),
+              FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ],
+          ),
+        );
 }

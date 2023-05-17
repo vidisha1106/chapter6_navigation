@@ -15,7 +15,7 @@ class _MyCommunicationState extends State<MyCommunication> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Communication Between Screens"),
+        title: const Text("Communication Between Screens"),
         centerTitle: true,
       ),
       body: Center(

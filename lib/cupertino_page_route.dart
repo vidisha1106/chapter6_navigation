@@ -12,7 +12,7 @@ class _MyCupertinoPageRouteState extends State<MyCupertinoPageRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CupertinoPageRoute"),
+        title: const Text("CupertinoPageRoute"),
         centerTitle: true,
       ),
     );
