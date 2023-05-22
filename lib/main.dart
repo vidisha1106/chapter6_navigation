@@ -2,6 +2,7 @@ import 'package:chapter6_navigation/communication_between_screens.dart';
 import 'package:chapter6_navigation/communication_between_widgets.dart';
 import 'package:chapter6_navigation/cupertino_page_route.dart';
 import 'package:chapter6_navigation/navigation_observer.dart';
+import 'package:chapter6_navigation/navigator_keys.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_one.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_three.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_two.dart';
@@ -360,6 +361,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   ));
                 },
                 child: const Text("Send Data To a New Screen",
+                    style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,MaterialPageRoute(builder: (context) {
+                    return NavigatorKeys();
+                  },));
+                },
+                child: const Text("Navigator Keys",
                     style: TextStyle(fontSize: 18)),
               ),
             ],
