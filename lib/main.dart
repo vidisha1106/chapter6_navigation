@@ -1,9 +1,9 @@
 import 'package:chapter6_navigation/communication_between_screens.dart';
 import 'package:chapter6_navigation/communication_between_widgets.dart';
 import 'package:chapter6_navigation/cupertino_page_route.dart';
+import 'package:chapter6_navigation/global_key.dart';
 import 'package:chapter6_navigation/navigation_observer.dart';
-import 'package:chapter6_navigation/navigator_keys.dart';
-import 'package:chapter6_navigation/onGenerateRoutes/generate_one.dart';
+import 'package:chapter6_navigation/unique_key.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_three.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_two.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/onGenerate_route_main.dart';
@@ -12,12 +12,15 @@ import 'package:chapter6_navigation/push.dart';
 import 'package:chapter6_navigation/generate_routes/route_generator_class.dart';
 import 'package:chapter6_navigation/route_transition.dart';
 import 'package:chapter6_navigation/send_data_to_new_scereen.dart';
+import 'package:chapter6_navigation/value_key.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+GlobalKey<MyGlobalKeyState> counterKey=GlobalKey<MyGlobalKeyState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
         //'/GenerateOne': (context) => const GenerateOne(),
         '/GenerateTwo': (context) => const GenerateTwo(),
         '/GenerateThree': (context) => const GenerateThree(),
-        '/CupertinoPageRoute': (context) => const MyCupertinoPageRoute(),
+        '/CupertinoPageRoute': (context) =>  MyCupertinoPageRoute(counterKey: counterKey),
         '/CommunicationBetweenScreens': (context) => MyCommunication(
               data: textFieldData,
             ),
@@ -160,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => const MyCupertinoPageRoute(),
+                        builder: (context) =>  MyCupertinoPageRoute(counterKey: counterKey),
                       ));
                 },
                 child: const Text("CupertinoPageRoute",
@@ -365,12 +368,33 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) {
-                    return NavigatorKeys();
-                  },));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MyUniqueKey();
+                    },
+                  ));
                 },
-                child: const Text("Navigator Keys",
-                    style: TextStyle(fontSize: 18)),
+                child: const Text("Unique Key", style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MyValueKey();
+                    },
+                  ));
+                },
+                child: const Text("Value Key", style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MyGlobalKey(key: counterKey,);
+                    },
+                  ));
+                },
+                child: const Text("Global Key", style: TextStyle(fontSize: 18)),
               ),
             ],
           )),
