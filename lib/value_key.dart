@@ -15,7 +15,7 @@ class _MyValueKeyState extends State<MyValueKey> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Value Key"),
+          title: const Text("Value Key"),
           automaticallyImplyLeading: true,
         ),
         body: ReorderableListView(
@@ -30,7 +30,7 @@ class _MyValueKeyState extends State<MyValueKey> {
             return ListTile(
               key: ValueKey(item),
                 title: Text(item),
-              trailing: Icon(Icons.menu),
+              trailing: const Icon(Icons.menu),
             );
           },).toList(),
         ));
@@ -38,6 +38,7 @@ class _MyValueKeyState extends State<MyValueKey> {
 
   @override
   void initState() {
+    super.initState();
     todos = ["Breakfast", "Lunch", "Dinner"];
   }
 }

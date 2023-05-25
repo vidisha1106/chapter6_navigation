@@ -1,8 +1,5 @@
+import 'package:chapter6_navigation/cupertino_page_route.dart';
 import 'package:flutter/material.dart';
-
-import 'main.dart';
-
-
 
 class MyGlobalKey extends StatefulWidget {
   const MyGlobalKey({Key? key}) : super(key: key);
@@ -11,12 +8,13 @@ class MyGlobalKey extends StatefulWidget {
   State<MyGlobalKey> createState() => MyGlobalKeyState();
 }
 
+
+
 class MyGlobalKeyState extends State<MyGlobalKey> {
   int counter = 0;
 
   void incrementCounter() {
     setState(() {
-      // counter++;
       counter++;
     });
   }
@@ -25,22 +23,34 @@ class MyGlobalKeyState extends State<MyGlobalKey> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return MyCupertinoPageRoute();
+                },
+              ));
+            },
+          )
+        ],
         centerTitle: true,
-        title: Text("Global Key"),
+        title: const Text("Global Key"),
         automaticallyImplyLeading: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("You have pushed the button this many times : ",
+            const Text("You have pushed the button this many times : ",
                 style: TextStyle(fontSize: 20)),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Text(
               counter.toString(),
-              style: TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 25),
             ),
           ],
         ),
@@ -48,9 +58,9 @@ class MyGlobalKeyState extends State<MyGlobalKey> {
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             incrementCounter();
-            print(counter.toString());
+            // print(counterKey.currentState!.counter.toString());
           },
-          child: Icon(Icons.add)),
+          child: const Icon(Icons.add)),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:chapter6_navigation/communication_between_widgets.dart';
 import 'package:chapter6_navigation/cupertino_page_route.dart';
 import 'package:chapter6_navigation/global_key.dart';
 import 'package:chapter6_navigation/navigation_observer.dart';
+import 'package:chapter6_navigation/object_key.dart';
 import 'package:chapter6_navigation/unique_key.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_three.dart';
 import 'package:chapter6_navigation/onGenerateRoutes/generate_two.dart';
@@ -20,7 +21,7 @@ void main() {
   runApp(const MyApp());
 }
 
-GlobalKey<MyGlobalKeyState> counterKey=GlobalKey<MyGlobalKeyState>();
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
         //'/GenerateOne': (context) => const GenerateOne(),
         '/GenerateTwo': (context) => const GenerateTwo(),
         '/GenerateThree': (context) => const GenerateThree(),
-        '/CupertinoPageRoute': (context) =>  MyCupertinoPageRoute(counterKey: counterKey),
+        '/CupertinoPageRoute': (context) =>  MyCupertinoPageRoute(),
         '/CommunicationBetweenScreens': (context) => MyCommunication(
               data: textFieldData,
             ),
@@ -77,6 +78,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 String textFieldData = '';
+
+GlobalKey<MyGlobalKeyState> counterKey=GlobalKey<MyGlobalKeyState>();
+
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController textEditingController = TextEditingController();
@@ -163,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) =>  MyCupertinoPageRoute(counterKey: counterKey),
+                        builder: (context) =>  MyCupertinoPageRoute(),
                       ));
                 },
                 child: const Text("CupertinoPageRoute",
@@ -185,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             (context, animation, secondaryAnimation, child) {
                           return SlideTransition(
                             position:
-                                Tween(begin: Offset(1, 0), end: Offset(0, 0))
+                                Tween(begin: const Offset(1, 0), end: const Offset(0, 0))
                                     .animate(animation),
                             child: child,
                           );
@@ -200,8 +204,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration(seconds: 2),
-                        reverseTransitionDuration: Duration(seconds: 2),
+                        transitionDuration: const Duration(seconds: 2),
+                        reverseTransitionDuration: const Duration(seconds: 2),
                         pageBuilder: (BuildContext context,
                             Animation<double> animation,
                             Animation<double> secondaryAnimation) {
@@ -226,8 +230,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration(seconds: 3),
-                        reverseTransitionDuration: Duration(seconds: 3),
+                        transitionDuration: const Duration(seconds: 3),
+                        reverseTransitionDuration: const Duration(seconds: 3),
                         pageBuilder: (BuildContext context,
                             Animation<double> animation,
                             Animation<double> secondaryAnimation) {
@@ -253,8 +257,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       PageRouteBuilder(
-                        reverseTransitionDuration: Duration(seconds: 3),
-                        transitionDuration: Duration(seconds: 3),
+                        reverseTransitionDuration: const Duration(seconds: 3),
+                        transitionDuration: const Duration(seconds: 3),
                         pageBuilder: (BuildContext context,
                             Animation<double> animation,
                             Animation<double> secondaryAnimation) {
@@ -278,8 +282,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       PageRouteBuilder(
-                        transitionDuration: Duration(seconds: 1),
-                        reverseTransitionDuration: Duration(seconds: 1),
+                        transitionDuration: const Duration(seconds: 1),
+                        reverseTransitionDuration: const Duration(seconds: 1),
                         pageBuilder: (BuildContext context,
                             Animation<double> animation,
                             Animation<double> secondaryAnimation) {
@@ -308,7 +312,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                      context, FadeAndScaleRoute(MyRouteTransition()));
+                      context, FadeAndScaleRoute(const MyRouteTransition()));
                 },
                 child: const Text("fade and scale Route Transition",
                     style: TextStyle(fontSize: 18)),
@@ -370,7 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return MyUniqueKey();
+                      return const MyUniqueKey();
                     },
                   ));
                 },
@@ -380,7 +384,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return MyValueKey();
+                      return const MyValueKey();
                     },
                   ));
                 },
@@ -390,11 +394,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return MyGlobalKey(key: counterKey,);
+                      return MyGlobalKey(key: counterKey);
                     },
                   ));
                 },
                 child: const Text("Global Key", style: TextStyle(fontSize: 18)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MyObjectKey();
+                    },
+                  ));
+                },
+                child: const Text("Object Key", style: TextStyle(fontSize: 18)),
               ),
             ],
           )),
@@ -456,7 +470,7 @@ class FadeAndScaleRoute extends PageRouteBuilder {
             Animation<double> secondaryAnimation,
           ) =>
               page,
-          transitionDuration: Duration(seconds: 5),
+          transitionDuration: const Duration(seconds: 5),
           transitionsBuilder: (
             BuildContext context,
             Animation<double> animation,

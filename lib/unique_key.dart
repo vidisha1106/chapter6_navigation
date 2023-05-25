@@ -23,7 +23,7 @@ class _MyUniqueKeyState extends State<MyUniqueKey> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Unique Key"),
+          title: const Text("Unique Key"),
           automaticallyImplyLeading: true,
         ),
         body: Column(
@@ -38,12 +38,13 @@ class _MyUniqueKeyState extends State<MyUniqueKey> {
           onPressed: () {
             swapStatefulTiles();
           },
-          child: Text("Swap", style: TextStyle(fontSize: 25)),
+          child: const Text("Swap", style: TextStyle(fontSize: 25)),
         ));
   }
 
   @override
   void initState() {
+    super.initState();
     statefultiles = [
       StatefulColorTile(
          key: UniqueKey() ,
